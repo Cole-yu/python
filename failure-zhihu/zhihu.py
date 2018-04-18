@@ -24,43 +24,35 @@ print(url_content)
 # print(answers)#列表
 # print(limits)
 
-# while offset < limits:
-#     post_url = 'https://www.zhihu.com/question/37787176/answer/81607754'
-#     # post_url='https://www.zhihu.com/question/37787176'
+while offset < limits:
+    post_url = 'https://www.zhihu.com/api/v4/questions/37787176/answers?sort_by=default&include=data%5B%2A%5D.is_normal%2Cis_collapsed%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission%2Cmark_infos%2Ccreated_time%2Cupdated_time%2Creview_info%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked%2Cis_nothelp%2Cupvoted_followees%3Bdata%5B%2A%5D.author.follower_count%2Cbadge%5B%3F%28type%3Dbest_answerer%29%5D.topics&limit=20&offset='
+    post_url=post_url+str(offset)
 
-#     # params = json.dumps({
-#     #     'url_token': 37787176
-#     # })
-#     # datas = {
-#     #     '_xsrf': '',
-#     #     'method': 'next',
-#     #     'params': params
-#     # }
-#     headers = {
-#         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
-#         'Host':"www.zhihu.com",
-#         'Referer': url
-#     }
+    headers = {
+        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
+        'Host':"www.zhihu.com",
+        'Referer': url
+    }
 
-#     data = urllib.parse.urlencode(datas).encode('utf-8')
-#     req = urllib.request.Request(url=post_url, data=data, headers=headers,method = 'POST')
-#     response=urllib.request.urlopen(req)
-#     html=response.read().decode('utf-8')
-#     print(html)
 
-#     answer_list = json.dumps(html)
-#     print(answer_list)
+    req = urllib.request.Request(url=post_url, data=data, headers=headers,method = 'POST')
+    response=urllib.request.urlopen(req)
+    html=response.read().decode('utf-8')
+    print(html)
 
-#     pattern=re.compile(r'(http|https):\/\/([0-9A-Za-z\._]*\/)*([0-9A-Za-z_]*)\.(jpg|jpeg|png)')
+    answer_list = json.dumps(html)
+    print(answer_list)
 
-#     img_urls = pattern.findall(''.join(answer_list))
-#     for img_url in img_urls:
-#         try:
-#             img_data = urllib.request.urlopen(img_url).read()
-#             file_name = basename(urlsplit(img_url)[2])
-#             output = open('images/' + file_name, 'wb')
-#             output.write(img_data)
-#             output.close()
-#         except:
-#             pass
-#     offset =  offset + 1
+    pattern=re.compile(r'(http|https):\/\/([0-9A-Za-z\._]*\/)*([0-9A-Za-z_]*)\.(jpg|jpeg|png)')
+
+    img_urls = pattern.findall(''.join(answer_list))
+    for img_url in img_urls:
+        try:
+            img_data = urllib.request.urlopen(img_url).read()
+            file_name = basename(urlsplit(img_url)[2])
+            output = open('images/' + file_name, 'wb')
+            output.write(img_data)
+            output.close()
+        except:
+            pass
+    offset =  offset + 1
