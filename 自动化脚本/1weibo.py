@@ -10,11 +10,9 @@ import time
 file=docx.Document("D:\\desktop\\python.docx")
 print("段落数:"+str(len(file.paragraphs)))#段落数为13，每个回车隔离一段
 
-content=""
 #输出每一段的内容
 for para in file.paragraphs:
-    # print(para.text)
-    content=content+para.text
+    print(para.text)
 
 #输出段落编号及段落内容
 for i in range(len(file.paragraphs)):
@@ -33,7 +31,7 @@ print(txt)
 # time.sleep(15)
 # driver.quit()
 
-url="http://upass.10jqka.com.cn/login?act=loginByIframe&view=media_new&redir=http%3A%2F%2Fmedia.10jqka.com.cn/default/register/choices/"
+url="https://weibo.com/"
 # url="http://media.10jqka.com.cn/default/login/"
 
 #浏览器启动，不显示提示“正受到自动测试工具控制”
@@ -46,38 +44,11 @@ driver = webdriver.Chrome()
 driver.maximize_window()
 driver.implicitly_wait(20)
 driver.get(url)
-driver.find_element_by_id("username")
-driver.find_element_by_id("username").send_keys("wjzmt904049@sina.com")
-driver.find_element_by_id("password")
-driver.find_element_by_id("password").send_keys("Wj1016626")
-driver.find_element_by_id("loginBtn").click()
+driver.find_element_by_id("loginname").send_keys("13122102061")
+driver.find_element_by_name("password").send_keys("qwer1234.")
+driver.find_element_by_partial_link_text("登录").click()
 
 first_window=driver.current_window_handle  #此行代码用来定位当前页面  
-driver.find_element_by_link_text("发布内容").click()
+# driver.find_element_by_link_text("发布内容").click()
 
-# time.sleep(1)
-driver.find_element_by_partial_link_text("图文结合的单篇观点").click()
-
-secone_window=driver.current_window_handle
-
-frame=driver.find_element_by_id("rightMain")
-driver.switch_to.frame(frame)
-# time.sleep(1)
-
-driver.find_element_by_id("title").send_keys(txt)
-
-# time.sleep(1)
-# frame_body=driver.find_element_by_id("ueditor_0")
-# driver.switch_to.frame(frame_body)
-
-# content = u'文本内容'
-
-
-js = 'document.getElementById("ueditor_0").contentDocument.body.innerText=\"%s\"' % content
-driver.execute_script(js)
-
-#预览
-driver.find_element_by_id("sub_btn1").click()
-#正式发布
-# driver.find_element_by_id("sub_btn").click()
-# driver.quit()
+# # driver.quit()
