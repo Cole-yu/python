@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 #读取docx中的文本代码示例
-import docx
+import docx   #防止python同名文件与docx模块冲突
 from selenium import webdriver
 import os
 import time
@@ -60,6 +60,8 @@ driver.find_element_by_partial_link_text("图文结合的单篇观点").click()
 
 secone_window=driver.current_window_handle
 
+
+#页面定位到iframe中，需要指定iframe
 frame=driver.find_element_by_id("rightMain")
 driver.switch_to.frame(frame)
 # time.sleep(1)
